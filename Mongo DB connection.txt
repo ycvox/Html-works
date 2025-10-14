@@ -1,0 +1,51 @@
+command 
+
+npm init -y
+npm install mongoose
+
+In pgaes (new page)
+server.js
+// server.js — Smallest MongoDB connection example
+const mongoose = require('mongoose');
+
+// 1️⃣ Connect to local MongoDB (make sure mongod is running)
+mongoose.connect('mongodb://127.0.0.1:27017/testdb')
+  .then(() => console.log('✅ Connected to MongoDB successfully!'))
+  .catch(err => console.error('❌ Connection error:', err));
+
+// 2️⃣ Define a simple schema (like a table)
+const userSchema = new mongoose.Schema({
+  name: String,
+  age: Number
+});
+
+// 3️⃣ Create a model
+const User = mongoose.model('User', userSchema);
+
+// 4️⃣ Insert one sample record
+async function runDemo() {
+  const user = new User({ name: 'Alice', age: 25 });
+  await user.save();
+  console.log('🎉 User saved to MongoDB!');
+  mongoose.connection.close();
+}
+
+runDemo();
+
+
+run
+node server.js
+
+after run
+
+visit mongo shell
+commands
+mongosh
+use testdb
+db.users.find()
+
+data will be shown in id name age format
+
+If connection not established check mongodb installation and run "net start MongoDB" in powershell
+
+pull the connection address in postman
